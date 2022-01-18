@@ -1,0 +1,23 @@
+{
+  "server": "hub-cloud.browserstack.com",
+  "user": "arpit_4aYrlD",
+  "key": "RT34EdfE2iHm6d7spfjR",
+
+  "capabilities": {
+    "build": "browserstack-build-1",
+    "name": "parallel_test",
+    "browserstack.debug": true
+  },
+
+  "environments": {
+    "env1": {
+      "browser": "chrome"
+    },
+    "env2": {
+      "browser": "firefox"
+    },
+    "env3": {
+      "browser": "edge"
+    }
+  }
+}
