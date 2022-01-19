@@ -1,7 +1,12 @@
 package com.browserstack;
 
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,6 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 import com.browserstack.local.Local;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
@@ -80,4 +90,16 @@ public class BrowserStackTestNGTest {
             l.stop();
         }
     }
+    
+    
+    public static void mark(String status) throws URISyntaxException, UnsupportedEncodingException, IOException {
+    	  URI uri = new URI("https://arpit_4aYrlD:RT34EdfE2iHm6d7spfjR@api.browserstack.com/automate/sessions/<session-id>.json");
+    	  HttpPut putRequest = new HttpPut(uri);
+
+    	  ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+    	  nameValuePairs.add((new BasicNameValuePair("status", status)));
+    	  nameValuePairs.add((new BasicNameValuePair("reason", "")));
+    	  putRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+          HttpClientBuilder.create().build().execute(putRequest);
+    	}
 }

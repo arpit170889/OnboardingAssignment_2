@@ -1,5 +1,8 @@
 package com.browserstack;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,15 +15,15 @@ public class LocalTest extends BrowserStackTestNGTest {
 
     
 	@Test
-	public void Usecase1() throws InterruptedException
+	public void Usecase1() throws InterruptedException, UnsupportedEncodingException, URISyntaxException, IOException
 
 	{
-        driver.get("http://bs-local.com:45691/check");
+        try {
+		driver.get("http://bs-local.com:45691/check");
         Assert.assertTrue(driver.getPageSource().contains("Up and running"));
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.browserstack.com/");
 		driver.navigate().to("https://www.browserstack.com//users/sign_in");
-//		driver.findElement(By.xpath("(//a[text()='Sign in'])[1]")).click();
 		driver.findElement(By.xpath("//input[@id='user_email_login']")).sendKeys("arpit+demo@browserstack.com");
 		driver.findElement(By.xpath("//input[@id='user_password']")).sendKeys("test@123");
 		driver.findElement(By.xpath("//input[@value='Sign me in']")).click();
@@ -31,19 +34,24 @@ public class LocalTest extends BrowserStackTestNGTest {
 		driver.findElement(By.xpath("//span[text()='Galaxy S21']")).click();
 		driver.findElement(By.xpath("(//div[@data-test-device-browser='chrome'])[1]")).click();
 		driver.findElement(By.xpath("//button[text()='Close']")).click();
-		 
-        //Calculate position canvas button
 		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay-native"));
 		Actions builder = new Actions(driver);
-		builder.moveToElement(canvasElement,80,20).doubleClick().sendKeys("browserstack.com").perform();	
+		builder.moveToElement(canvasElement,80,20).doubleClick().sendKeys("browserstack.com").perform();
+		mark("pass");
+        }
+        catch (Exception e) {
+        	
+        	mark("fail");
+        }
 		
 	}
 	
 	@Test
-	public void Usecase2() throws InterruptedException
+	public void Usecase2() throws InterruptedException, UnsupportedEncodingException, URISyntaxException, IOException
 
 
 	{
+		
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.amazon.in/");
 		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("iPhone X");
@@ -61,6 +69,7 @@ public class LocalTest extends BrowserStackTestNGTest {
 	    		System.out.print(i+") Device Name : "+DeviceName+"\n");
 	        } catch (Exception e) {
 	        	System.out.print("Device Name for" +i+ "not available");
+	        	mark("fail");
 	        }
 	    	
 	    	try {
@@ -68,6 +77,7 @@ public class LocalTest extends BrowserStackTestNGTest {
 	    		System.out.print("Link : "+Link+"\n");
 	        } catch (Exception e) {
 	        	System.out.print("Link for" +i+ "not available");
+	        	mark("fail");
 	        }
 	    	
 	    	try {
@@ -75,8 +85,10 @@ public class LocalTest extends BrowserStackTestNGTest {
 	    		System.out.print("Price: "+Price+"\n");
 	        } catch (Exception e) {
 	        	System.out.print("Price for " +i+ "th not available");
+	        	mark("fail");
 	        }
 	     }
 		
+		mark("pass");
 	}
 }
