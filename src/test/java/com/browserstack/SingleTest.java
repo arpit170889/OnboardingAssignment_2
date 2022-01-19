@@ -1,6 +1,7 @@
 package com.browserstack;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ public class SingleTest extends BrowserStackTestNGTest {
 	@Test
 	public void Usecase1() throws InterruptedException
 
+
 	{
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.amazon.in/");
@@ -26,10 +28,27 @@ public class SingleTest extends BrowserStackTestNGTest {
 		System.out.println("\n----SIZE---\n"+myList.size());
 	     for (int i = 1; i <= myList.size(); i++)
 	     {
-	        String DeviceName = driver.findElement(By.xpath("(//span[@class='a-size-medium a-color-base a-text-normal'])["+ i +"]")).getText();
-	        String Link = driver.findElement(By.xpath("(//a[@class='a-link-normal s-link-style a-text-normal'])["+ i +"]")).getAttribute("href");
-	        String Price = driver.findElement(By.xpath("(//span[@class='a-price-whole'])["+ i +"]")).getText();	       
-	    	System.out.print(i+") Device Name : "+DeviceName+" Price : "+Price+" Link: "+Link+"\n");
+	       
+	    	try {
+	    		String DeviceName = driver.findElement(By.xpath("(//span[@class='a-size-medium a-color-base a-text-normal'])["+ i +"]")).getText();
+	    		System.out.print(i+") Device Name : "+DeviceName+"\n");
+	        } catch (Exception e) {
+	        	System.out.print("Device Name for" +i+ "not available");
+	        }
+	    	
+	    	try {
+	    		String Link = driver.findElement(By.xpath("(//a[@class='a-link-normal s-link-style a-text-normal'])["+ i +"]")).getAttribute("href");
+	    		System.out.print("Link : "+Link+"\n");
+	        } catch (Exception e) {
+	        	System.out.print("Link for" +i+ "not available");
+	        }
+	    	
+	    	try {
+	    		String Price = driver.findElement(By.xpath("(//span[@class='a-price-whole'])["+ i +"]")).getText();
+	    		System.out.print("Price: "+Price+"\n");
+	        } catch (Exception e) {
+	        	System.out.print("Price for" +i+ "not available");
+	        }
 	     }
 		
 	}
