@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -19,6 +20,7 @@ public class LocalTest extends BrowserStackTestNGTest {
 
 	{
         try {
+        
 		driver.get("http://bs-local.com:45691/check");
         Assert.assertTrue(driver.getPageSource().contains("Up and running"));
 		System.out.print("\nLaunching Browser\n");
@@ -37,11 +39,11 @@ public class LocalTest extends BrowserStackTestNGTest {
 		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay-native"));
 		Actions builder = new Actions(driver);
 		builder.moveToElement(canvasElement,80,20).doubleClick().sendKeys("browserstack.com").perform();
-		mark("pass");
+		jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Test case executed succesfully!\"}}");
         }
         catch (Exception e) {
         	
-        	mark("fail");
+        	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"failed\", \"reason\": \"One of the steps failed\"}}");
         }
 		
 	}
@@ -69,15 +71,15 @@ public class LocalTest extends BrowserStackTestNGTest {
 	    		System.out.print(i+") Device Name : "+DeviceName+"\n");
 	        } catch (Exception e) {
 	        	System.out.print("Device Name for" +i+ "not available");
-	        	mark("fail");
+	        	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"failed\", \"reason\": \"One of the steps failed\"}}");
 	        }
 	    	
 	    	try {
-	    		String Link = driver.findElement(By.xpath("(//a[@class='a-link-normal s-link-style a-text-normal'])["+ i +"]")).getAttribute("href");
+	    		String Link = driver.findElement(By.xpath("(//a[@class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'])["+ i +"]")).getAttribute("href");
 	    		System.out.print("Link : "+Link+"\n");
 	        } catch (Exception e) {
 	        	System.out.print("Link for" +i+ "not available");
-	        	mark("fail");
+	        	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"failed\", \"reason\": \"One of the steps failed\"}}");
 	        }
 	    	
 	    	try {
@@ -85,10 +87,10 @@ public class LocalTest extends BrowserStackTestNGTest {
 	    		System.out.print("Price: "+Price+"\n");
 	        } catch (Exception e) {
 	        	System.out.print("Price for " +i+ "th not available");
-	        	mark("fail");
+	        	jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"failed\", \"reason\": \"One of the steps failed\"}}");
 	        }
 	     }
 		
-		mark("pass");
+	     jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Test case executed succesfully!\"}}");
 	}
 }
