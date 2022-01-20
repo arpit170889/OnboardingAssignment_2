@@ -40,7 +40,7 @@ public class LocalTest extends BrowserStackTestNGTest {
 		driver.findElement(By.xpath("//button[text()='Close']")).click();
 		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay-native"));
 		Actions builder = new Actions(driver);
-		builder.moveToElement(canvasElement,20,5).contextClick().sendKeys("browserstack.com").perform();
+		builder.moveToElement(canvasElement,5,5).contextClick().sendKeys("browserstack.com").perform();
 		jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Test case executed succesfully!\"}}");
         }
         catch (Exception e) {
