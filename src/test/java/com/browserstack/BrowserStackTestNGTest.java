@@ -31,7 +31,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class BrowserStackTestNGTest {
 	public  WebDriver driver;
-	public JavascriptExecutor jse = (JavascriptExecutor)driver;
+//	public JavascriptExecutor jse = (JavascriptExecutor)driver;
 	private Local l;
 
 	@BeforeMethod(alwaysRun = true)

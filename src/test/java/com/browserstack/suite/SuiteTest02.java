@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -20,7 +21,7 @@ public class SuiteTest02 extends BrowserStackTestNGTest {
 
 
 	{
-		
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.amazon.in/");
 		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("iPhone X");

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -19,6 +20,7 @@ public class SingleTest extends BrowserStackTestNGTest {
 	public void Usecase1() throws InterruptedException, UnsupportedEncodingException, URISyntaxException, IOException
 
 	{
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
         try {
         
 		System.out.print("\nLaunching Browser\n");
@@ -51,7 +53,7 @@ public class SingleTest extends BrowserStackTestNGTest {
 
 
 	{
-		
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.amazon.in/");
 		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("iPhone X");

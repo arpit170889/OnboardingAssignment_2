@@ -14,13 +14,15 @@ import org.testng.annotations.Test;
 
 public class LocalTest extends BrowserStackTestNGTest {
 
+
     
 	@Test
 	public void Usecase1() throws InterruptedException, UnsupportedEncodingException, URISyntaxException, IOException
 
 	{
-        try {
-        
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		try {
+       
 		driver.get("http://bs-local.com:45691/check");
         Assert.assertTrue(driver.getPageSource().contains("Up and running"));
 		System.out.print("\nLaunching Browser\n");
@@ -38,7 +40,7 @@ public class LocalTest extends BrowserStackTestNGTest {
 		driver.findElement(By.xpath("//button[text()='Close']")).click();
 		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay-native"));
 		Actions builder = new Actions(driver);
-		builder.moveToElement(canvasElement,80,20).doubleClick().sendKeys("browserstack.com").perform();
+		builder.moveToElement(canvasElement,20,5).contextClick().sendKeys("browserstack.com").perform();
 		jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Test case executed succesfully!\"}}");
         }
         catch (Exception e) {
@@ -53,7 +55,7 @@ public class LocalTest extends BrowserStackTestNGTest {
 
 
 	{
-		
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.amazon.in/");
 		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("iPhone X");

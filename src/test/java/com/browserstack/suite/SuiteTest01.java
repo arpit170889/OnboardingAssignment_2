@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -19,6 +20,7 @@ public class SuiteTest01 extends BrowserStackTestNGTest {
 	public void Usecase1() throws InterruptedException, UnsupportedEncodingException, URISyntaxException, IOException
 
 	{
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
         try {
         
 		System.out.print("\nLaunching Browser\n");
