@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -33,14 +34,12 @@ public class LocalTest extends BrowserStackTestNGTest {
 		driver.findElement(By.xpath("//input[@value='Sign me in']")).click();
 		driver.navigate().to("https://live.browserstack.com/dashboard");
 		driver.findElement(By.xpath("//a[text()='Live']")).click();
-		driver.findElement(By.xpath("//div[@data-test-ositem='android']")).click();
-		driver.findElement(By.xpath("//span[text()='Samsung']")).click();
-		driver.findElement(By.xpath("//span[text()='Galaxy S21']")).click();
-		driver.findElement(By.xpath("(//div[@data-test-device-browser='chrome'])[1]")).click();
+		driver.findElement(By.xpath("//div[@data-test-ositem='win11']")).click();
+		driver.findElement(By.xpath("(//div[@data-browser-type='chrome'])[1]")).click();
 		driver.findElement(By.xpath("//button[text()='Close']")).click();
-		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay-native"));
+		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay"));
 		Actions builder = new Actions(driver);
-		builder.moveToElement(canvasElement,5,5).contextClick().sendKeys("browserstack.com").perform();
+		builder.moveToElement(canvasElement).sendKeys("browserstack").sendKeys(Keys.ENTER).build().perform();
 		jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Test case executed succesfully!\"}}");
         }
         catch (Exception e) {

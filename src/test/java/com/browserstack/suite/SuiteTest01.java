@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -21,8 +22,10 @@ public class SuiteTest01 extends BrowserStackTestNGTest {
 
 	{
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
-        try {
-        
+		try {
+       
+		driver.get("http://bs-local.com:45691/check");
+        Assert.assertTrue(driver.getPageSource().contains("Up and running"));
 		System.out.print("\nLaunching Browser\n");
 		driver.get("https://www.browserstack.com/");
 		driver.navigate().to("https://www.browserstack.com//users/sign_in");
@@ -31,14 +34,12 @@ public class SuiteTest01 extends BrowserStackTestNGTest {
 		driver.findElement(By.xpath("//input[@value='Sign me in']")).click();
 		driver.navigate().to("https://live.browserstack.com/dashboard");
 		driver.findElement(By.xpath("//a[text()='Live']")).click();
-		driver.findElement(By.xpath("//div[@data-test-ositem='android']")).click();
-		driver.findElement(By.xpath("//span[text()='Samsung']")).click();
-		driver.findElement(By.xpath("//span[text()='Galaxy S21']")).click();
-		driver.findElement(By.xpath("(//div[@data-test-device-browser='chrome'])[1]")).click();
+		driver.findElement(By.xpath("//div[@data-test-ositem='win11']")).click();
+		driver.findElement(By.xpath("(//div[@data-browser-type='chrome'])[1]")).click();
 		driver.findElement(By.xpath("//button[text()='Close']")).click();
-		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay-native"));
+		WebElement canvasElement = driver.findElement(By.id("flashlight-overlay"));
 		Actions builder = new Actions(driver);
-		builder.moveToElement(canvasElement,80,20).doubleClick().sendKeys("browserstack.com").perform();
+		builder.moveToElement(canvasElement).sendKeys("browserstack").sendKeys(Keys.ENTER).build().perform();
 		jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Test case executed succesfully!\"}}");
         }
         catch (Exception e) {
